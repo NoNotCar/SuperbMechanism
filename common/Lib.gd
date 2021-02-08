@@ -5,6 +5,8 @@ extends Node
 # var a = 2
 # var b = "text"
 const N = preload("res://parts/Node.tscn")
+const backcols = [Color8(85,223,255),Color8(85,223,255)]
+const terrcols = [Color8(51,152,75),Color8(0,152,220)]
 var terrain_colour = Color8(51,152,75)
 var darker_terrain = terrain_colour.darkened(0.3)
 var clevel:Node2D
@@ -12,6 +14,7 @@ var nodes = {}
 var csave = "res://levels/test.sav"
 var clname:String
 var done = []
+var cworld = 1
 
 const around = [Vector2.UP,Vector2.RIGHT,Vector2.DOWN,Vector2.LEFT]
 # Called when the node enters the scene tree for the first time.
@@ -76,7 +79,12 @@ func complete_level():
 	if not clname in done:
 		done.append(clname)
 		save_var("user://done.sav",done)
-	get_tree().change_scene("res://gui/LevelSelect.tscn")
+func switch_world(to:int):
+	cworld=to
+	terrain_colour=terrcols[to-1]
+	darker_terrain=terrain_colour.darkened(0.3)
+	VisualServer.set_default_clear_color(backcols[to-1])
+	
 static func to_rect(p1:Vector2,p2:Vector2)->Rect2:
 	return Rect2(min(p1.x,p2.x),min(p1.y,p2.y),abs(p1.x-p2.x),abs(p1.y-p2.y))
 static func to_ramp(pos1:Vector2,pos2:Vector2):

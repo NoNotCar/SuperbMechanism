@@ -1,0 +1,74 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://parts/air/Propeller.gd" type="Script" id=1]
+[ext_resource path="res://parts/air/prop.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 18, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 36, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 54, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 90, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 108, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 126, 0, 18, 18 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 60.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 8, 5 )
+
+[sub_resource type="CapsuleShape2D" id=11]
+radius = 3.0
+height = 4.0
+
+[node name="Propeller" type="Node2D"]
+script = ExtResource( 1 )
+player = true
+worlds = 2
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 9 )
+frame = 1
+offset = Vector2( 0, 3 )
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 10 )
+
+[node name="Shape2" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 5 )
+shape = SubResource( 11 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 0, 8 )
+enabled = true
+cast_to = Vector2( 0, 64 )
+collision_mask = 5

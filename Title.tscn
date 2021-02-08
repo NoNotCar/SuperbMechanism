@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://gui/default.tres" type="Theme" id=1]
+[ext_resource path="res://Title.gd" type="Script" id=2]
+
+[node name="Title" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Fog" type="ColorRect" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.333333, 0.87451, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Theme" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Theme"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -286.5
+margin_top = 32.0
+margin_right = 286.5
+margin_bottom = 32.0
+text = "SUPERB MECHANISM"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Button" parent="CanvasLayer/Theme"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -95.5
+margin_top = -64.0
+margin_right = 95.5
+margin_bottom = -32.0
+text = "START"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="pressed" from="CanvasLayer/Theme/Start" to="." method="_on_Start_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

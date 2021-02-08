@@ -18,15 +18,16 @@ func _ready():
 	Lib.reset()
 	Lib.clevel=$Level
 	for ps in $CanvasLayer/Parts.get_children():
-		if player and not ps.player:
+		if player and (not ps.player or not ps.worlds&int(pow(2,Lib.cworld-1))):
 			ps.queue_free()
 		else:
 			ps.connect("pressed",self,"change_placing",[ps.to_place,ps.place_type])
 	if player:
 		Lib.load_lvl(false)
-		$CanvasLayer/SaveButton.queue_free()
+		$CanvasLayer/SaveButton.text="Exit"
+		$CanvasLayer/Parts.margin_top=-64
 	if reload:
-		Lib.csave = "res://levels/5balls.sav"
+		Lib.csave = "res://title/6.sav"
 		Lib.load_lvl(false)
 
 func change_placing(new:PackedScene,mode:String):
@@ -42,28 +43,44 @@ func snapped_pos():
 	return mpos
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
-		var mpos = snapped_pos()
 		if event.button_index==BUTTON_LEFT:
-			if event.pressed:
-				p1=mpos
-			elif p1!=null:
-				if valid(p1,mpos):
-					var new = placing.instance()
-					new.pos1=p1
-					new.pos2=mpos
-					new.setup(false)
-					$Level.add_child(new)
-				else:
-					$Error.play()
-				p1=null
+			mpress(event.pressed)
 
+func mpress(pressed:bool):
+	var mpos = snapped_pos()
+	if pressed:
+		p1=mpos
+	elif p1!=null:
+		if valid(p1,mpos):
+			var new = placing.instance()
+			new.pos1=p1
+			new.pos2=mpos
+			new.setup(false)
+			$Level.add_child(new)
+		else:
+			$Error.play()
+		p1=null
 func valid(pos1:Vector2,pos2:Vector2):
+	if not player:
+		return true
 	var within_build = in_build_zone(pos1) and in_build_zone(pos2)
 	match place_mode:
 		"rod":
 			return within_build and rod_cast(pos1,pos2)
 		"wrod":
 			return within_build and rod_cast(pos1,pos2,1)
+		"prop":
+			var space = get_world_2d().direct_space_state
+			var query = Physics2DShapeQueryParameters.new()
+			var rect = RectangleShape2D.new()
+			rect.extents=Vector2(8,5)
+			query.set_shape(rect)
+			query.transform = Transform2D(Vector2.UP.angle_to(pos2-pos1),pos1)
+			query.exclude = []
+			query.collision_layer=5
+			if space.intersect_shape(query):
+				return false
+			return in_build_zone(pos1)
 		"wheel":
 			var space = get_world_2d().direct_space_state
 			var ignore = []
@@ -80,6 +97,25 @@ func valid(pos1:Vector2,pos2:Vector2):
 			if space.intersect_shape(query):
 				return false
 			return in_build_zone(pos2)
+		"circle":
+			var space = get_world_2d().direct_space_state
+			var ignore = []
+			var n = Lib.grab_node(pos2)
+			if n:
+				ignore = n.attached
+			var query = Physics2DShapeQueryParameters.new()
+			var circle = CircleShape2D.new()
+			circle.radius = pos2.distance_to(pos1)
+			query.set_shape(circle)
+			query.transform = Transform2D(0,pos1)
+			query.exclude = ignore
+			query.collision_layer=5
+			if space.intersect_shape(query):
+				return false
+			for ang in range(0,10):
+				if not in_build_zone(pos1+Vector2.UP.rotated(ang*TAU/10)*circle.radius):
+					return false
+			return true
 	return true
 func rod_cast(pos1:Vector2,pos2:Vector2,layer=5):
 	if pos1.distance_to(pos2)<5:
@@ -110,7 +146,7 @@ func _draw():
 				draw_rect(Lib.to_rect(p1,p2),PREVIEW)
 			"circle":
 				draw_circle(p1,p1.distance_to(p2),PREVIEW)
-			"rod","wrod":
+			"rod","wrod","prop":
 				draw_line(p1,p2,PREVIEW,2,true)
 			"wheel":
 				draw_circle(p2,9,PREVIEW)
@@ -138,6 +174,11 @@ func _process(delta):
 		epos=mpos
 	else:
 		epos=null
+	if place_mode in ["rod","wrod"] and Input.is_key_pressed(KEY_SHIFT) and Input.is_mouse_button_pressed(BUTTON_LEFT):
+		var mpos = get_global_mouse_position()
+		if p1!=null and mpos.distance_to(p1)>10:
+			mpress(false)
+			mpress(true)
 
 func _on_TestButton_pressed():
 	Lib.csave="user://temp.sav"
@@ -146,8 +187,11 @@ func _on_TestButton_pressed():
 
 
 func _on_SaveButton_pressed():
-	Lib.csave="res://levels/test.sav"
-	Lib.save()
-	get_tree().quit()
+	if player:
+		get_tree().change_scene("res://gui/LevelSelect.tscn")
+	else:
+		Lib.csave="res://levels/test.sav"
+		Lib.save()
+		get_tree().quit()
 
 

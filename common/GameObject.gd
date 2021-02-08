@@ -7,6 +7,7 @@ class_name GameObject
 var pos1:Vector2
 var pos2:Vector2
 export var player = false
+export (int,FLAGS,"NORMAL","AIR","INDUSTRIAL","LAB") var worlds = 15
 
 # Called when the node enters the scene tree for the first time.
 func setup(game:bool):

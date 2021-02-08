@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Superb Mechanism"
-run/main_scene="res://gui/LevelSelect.tscn"
+run/main_scene="res://Title.tscn"
 config/icon="res://icon.png"
 
 [autoload]

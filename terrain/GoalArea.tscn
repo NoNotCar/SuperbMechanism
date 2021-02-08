@@ -3,7 +3,9 @@
 [ext_resource path="res://terrain/GoalArea.gd" type="Script" id=1]
 [ext_resource path="res://terrain/goal.png" type="Texture" id=2]
 
-[node name="GoalArea" type="Node2D"]
+[node name="GoalArea" type="Node2D" groups=[
+"Goal",
+]]
 z_index = -10
 script = ExtResource( 1 )
 colour = Color( 0.917647, 0.196078, 0.235294, 0.501961 )

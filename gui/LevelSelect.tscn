@@ -12,11 +12,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.368927, 0.567285, 0.613281, 1 )
-
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -43,3 +38,21 @@ custom_constants/hseparation = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Next" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -159.0
+margin_top = -48.0
+text = "Next"
+
+[node name="Previous" type="Button" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -48.0
+margin_right = 307.0
+text = "Previous"
+[connection signal="pressed" from="Next" to="." method="_on_Next_pressed"]
+[connection signal="pressed" from="Previous" to="." method="_on_Previous_pressed"]

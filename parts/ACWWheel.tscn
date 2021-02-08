@@ -4,6 +4,7 @@
 [ext_resource path="res://parts/anticlockwise.png" type="Texture" id=2]
 
 [node name="ACWWheel" instance=ExtResource( 1 )]
+worlds = 5
 target_speed = 1.0
 
 [node name="Sprite" parent="." index="1"]
