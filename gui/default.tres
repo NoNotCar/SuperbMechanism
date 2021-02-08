@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=8 format=2]
+
+[ext_resource path="res://gui/button/buttonlight.tres" type="StyleBox" id=1]
+[ext_resource path="res://gui/button/buttondark.tres" type="StyleBox" id=2]
+[ext_resource path="res://gui/button/button.tres" type="StyleBox" id=3]
+[ext_resource path="res://gui/StartSmall.tres" type="DynamicFont" id=4]
+[ext_resource path="res://gui/onoff1.png" type="Texture" id=5]
+[ext_resource path="res://gui/onoff2.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[resource]
+default_font = ExtResource( 4 )
+Button/colors/font_color = Color( 0.784314, 0.784314, 0.784314, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 1, 1, 1, 1 )
+Button/colors/font_color_pressed = Color( 0.501961, 0.501961, 0.501961, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = ExtResource( 2 )
+Button/styles/focus = SubResource( 1 )
+Button/styles/hover = ExtResource( 1 )
+Button/styles/normal = ExtResource( 3 )
+Button/styles/pressed = ExtResource( 2 )
+CheckButton/colors/font_color = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckButton/colors/font_color_hover = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckButton/constants/check_vadjust = 0
+CheckButton/constants/hseparation = 4
+CheckButton/fonts/font = null
+CheckButton/icons/off = ExtResource( 6 )
+CheckButton/icons/off_disabled = null
+CheckButton/icons/on = ExtResource( 5 )
+CheckButton/icons/on_disabled = null
+CheckButton/styles/disabled = null
+CheckButton/styles/focus = null
+CheckButton/styles/hover = null
+CheckButton/styles/hover_pressed = null
+CheckButton/styles/normal = null
+CheckButton/styles/pressed = ExtResource( 3 )
+Label/colors/font_color = Color( 1, 1, 1, 1 )
+Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+Label/constants/line_spacing = 3
+Label/constants/shadow_as_outline = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/fonts/font = null
+Label/styles/normal = null

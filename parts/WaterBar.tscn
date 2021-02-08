@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://parts/Bar.tscn" type="PackedScene" id=1]
+
+[node name="WaterBar" instance=ExtResource( 1 )]
+layers = 2
+mask = 1
+colour = Color( 0.0392157, 0, 0.721569, 0.501961 )

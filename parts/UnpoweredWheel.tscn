@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://parts/unpowered.png" type="Texture" id=1]
+[ext_resource path="res://parts/Wheel.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.99821
+
+[node name="UnpoweredWheel" type="Node2D"]
+script = ExtResource( 2 )
+player = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 4
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+z_index = -1
+texture = ExtResource( 1 )
