@@ -4,7 +4,6 @@
 
 [node name="LevelEditor" instance=ExtResource( 1 )]
 player = false
-reload = true
 
 [node name="SnapButton" parent="CanvasLayer" index="3"]
 anchor_left = 0.5

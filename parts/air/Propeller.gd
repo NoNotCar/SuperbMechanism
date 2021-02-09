@@ -23,6 +23,8 @@ func setup(game:bool):
 	else:
 		body = StaticBody2D.new()
 		set_physics_process(false)
+	body.layers=4
+	body.collision_mask=5
 	raycast=$RayCast2D
 	add_child(body)
 	for n in [$RayCast2D,$Shape,$Shape2,$AnimatedSprite]:

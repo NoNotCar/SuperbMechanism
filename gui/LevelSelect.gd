@@ -6,11 +6,12 @@ extends Control
 # var b = "text"
 const levels = {1:{"hump":"Bumpy Road","elevate":"Elevate","smolbridge":"Mind The Gap",
 "stairs":"Stairs","5balls":"Five Balls","elevate2":"Elevate Again","holeinone":"Hole In One","australia":"Australia",
-"bigbridge":"Too Far?"},2:{"uphill":"Uphill Struggle"}}
+"bigbridge":"Too Far?"},2:{"uphill":"Uphill Struggle","noroads":"We Don't Need Roads","dunk":"Dunkatron 3000"}}
 const LSB = preload("res://gui/LevelSelectButton.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var incomplete = 0
+	$SFX.pressed=Lib.sfx
 	if Lib.cworld==1:
 		$Previous.queue_free()
 	for lname in levels[Lib.cworld]:
@@ -48,3 +49,7 @@ func _on_Next_pressed():
 func _on_Previous_pressed():
 	Lib.switch_world(Lib.cworld-1)
 	get_tree().reload_current_scene()
+
+
+func _on_SFX_toggled(button_pressed):
+	Lib.sfx=button_pressed

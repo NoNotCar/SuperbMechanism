@@ -54,5 +54,22 @@ anchor_bottom = 1.0
 margin_top = -48.0
 margin_right = 307.0
 text = "Previous"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SFX" type="CheckButton" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -91.0
+margin_top = -58.0
+margin_right = 91.0
+text = "SFX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="Next" to="." method="_on_Next_pressed"]
 [connection signal="pressed" from="Previous" to="." method="_on_Previous_pressed"]
+[connection signal="toggled" from="SFX" to="." method="_on_SFX_toggled"]

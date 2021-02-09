@@ -13,6 +13,9 @@ export var player = true
 export var reload = false
 const PREVIEW = Color(0,0,0,0.5)
 const SNAP_DIST = pow(5,2)
+const WHEEL = preload("res://parts/Wheel.gd")
+const ROD = preload("res://parts/Bar.gd")
+const BALLOON = preload("res://parts/air/Balloon.gd")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Lib.reset()
@@ -57,7 +60,7 @@ func mpress(pressed:bool):
 			new.pos2=mpos
 			new.setup(false)
 			$Level.add_child(new)
-		else:
+		elif Lib.sfx:
 			$Error.play()
 		p1=null
 func valid(pos1:Vector2,pos2:Vector2):
@@ -87,6 +90,9 @@ func valid(pos1:Vector2,pos2:Vector2):
 			var n = Lib.grab_node(pos2)
 			if n:
 				ignore = n.attached
+				for i in ignore:
+					if i.get_parent() is WHEEL:
+						return false
 			var query = Physics2DShapeQueryParameters.new()
 			var circle = CircleShape2D.new()
 			circle.radius = 9
@@ -103,6 +109,9 @@ func valid(pos1:Vector2,pos2:Vector2):
 			var n = Lib.grab_node(pos2)
 			if n:
 				ignore = n.attached
+				for i in ignore:
+					if i.get_parent() is BALLOON:
+						return false
 			var query = Physics2DShapeQueryParameters.new()
 			var circle = CircleShape2D.new()
 			circle.radius = pos2.distance_to(pos1)
@@ -127,6 +136,9 @@ func rod_cast(pos1:Vector2,pos2:Vector2,layer=5):
 		if n:
 			for b in n.attached:
 				ignore.append(b)
+				var r = b.get_parent()
+				if r is ROD and ((r.pos1==pos1 and r.pos2==pos2) or (r.pos2==pos1 and r.pos1==pos2)):
+					return false
 	var cast = space.intersect_ray(pos1,pos2,ignore,layer)
 	if cast:
 		return false

@@ -15,11 +15,16 @@ var csave = "res://levels/test.sav"
 var clname:String
 var done = []
 var cworld = 1
+var sfx = true setget set_sfx
 
 const around = [Vector2.UP,Vector2.RIGHT,Vector2.DOWN,Vector2.LEFT]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	done = load_var("user://done.sav",[])
+	sfx = load_var("user://sfx.sav",true)
+func set_sfx(new:bool):
+	sfx=new
+	save_var("user://sfx.sav",new)
 func reset():
 	nodes.clear()
 func attach(pos:Vector2,r:PhysicsBody2D=null):

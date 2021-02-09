@@ -19,7 +19,8 @@ func _ready():
 #	pass
 
 func level_complete():
-	$Complete.play()
+	if Lib.sfx:
+		$Complete.play()
 	$GUI/Theme/StopButton.queue_free()
 	$GUI/Theme/Complete.show()
 func _on_StopButton_pressed():
